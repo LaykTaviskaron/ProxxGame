@@ -37,20 +37,6 @@ namespace Proxx
             Initialize();
         }
 
-        private void MakeAllBlackHolesVisible()
-        {
-            for (int i = 0; i < BoardSize; i++)
-            {
-                for (int j = 0; j < BoardSize; j++)
-                {
-                    if (Cells[i, j].IsBlackHole)
-                    {
-                        Cells[i, j].IsVisible = true;
-                    }
-                }
-            }
-        }
-
         public bool OpenCell(int i, int j)
         {
             if (Cells[i, j].IsBlackHole)
@@ -69,7 +55,7 @@ namespace Proxx
         {
             if (Cells[x, y].AdjacentBlackHolesCount == 0)
             {
-                DFS(x, y);
+                DepthFirstSearchCells(x, y);
             }
             else
             {
@@ -78,7 +64,7 @@ namespace Proxx
         }
 
         // Open other Cells recursively
-        private void DFS(int x, int y)
+        private void DepthFirstSearchCells(int x, int y)
         {
             if (Cells[x, y].IsVisited || Cells[x, y].IsBlackHole) return;
             Cells[x, y].IsVisited = true;
@@ -92,8 +78,22 @@ namespace Proxx
                     {
                         if (i >= 0 && i < BoardSize && j >= 0 && j < BoardSize)
                         {
-                            DFS(i, j);
+                            DepthFirstSearchCells(i, j);
                         }
+                    }
+                }
+            }
+        }
+
+        private void MakeAllBlackHolesVisible()
+        {
+            for (int i = 0; i < BoardSize; i++)
+            {
+                for (int j = 0; j < BoardSize; j++)
+                {
+                    if (Cells[i, j].IsBlackHole)
+                    {
+                        Cells[i, j].IsVisible = true;
                     }
                 }
             }
@@ -131,7 +131,7 @@ namespace Proxx
         private void Initialize()
         {
             this.random = new Random();
-            this.Cells = new CellModel[BoardSize, BoardSize];
+            Cells = new CellModel[BoardSize, BoardSize];
             for (int i = 0; i < BoardSize; i++)
             {
                 for (int j = 0; j < BoardSize; j++)

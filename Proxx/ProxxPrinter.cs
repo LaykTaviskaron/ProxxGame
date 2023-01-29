@@ -9,10 +9,10 @@ namespace Proxx
         {
             Console.Clear();
 
+            var separator = " ";
             for (int i = 0; i < model.BoardSize; i++) 
             {
                 var sb = new StringBuilder();
-                
                 for (int j = 0; j < model.BoardSize; j++)
                 {
                     var val = model.Cells[i, j].AdjacentBlackHolesCount.ToString();
@@ -29,7 +29,7 @@ namespace Proxx
                     }
 
 
-                    sb.Append(" " + val);
+                    sb.Append(separator + val);
                 }
 
                 Console.WriteLine(sb);
